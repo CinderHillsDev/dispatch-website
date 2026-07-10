@@ -27,7 +27,12 @@ const platforms = [
   },
   {
     name: 'Virtual appliance',
-    body: 'Ready-to-import VM (PostgreSQL baked in) for Hyper-V, VMware, KVM & Proxmox.',
+    body: 'Ready-to-import VM (PostgreSQL baked in). Import, power on, done.',
+    downloads: [
+      { label: 'Hyper-V (VHDX)', href: `${releaseBase}/dispatch-appliance-${version}-hyperv.vhdx.gz` },
+      { label: 'VMware (OVA)', href: `${releaseBase}/dispatch-appliance-${version}-vmware.ova` },
+      { label: 'KVM / Proxmox (qcow2)', href: `${releaseBase}/dispatch-appliance-${version}-kvm.qcow2` },
+    ],
     docsHref: 'https://docs.dispatchrelay.app/deployment/appliance/',
     docsLabel: 'Appliance guide',
   },
@@ -92,8 +97,15 @@ import '../styles/global.css';
                   {p.cmd && (
                     <code class="block overflow-x-auto rounded-md border border-line bg-ink px-3 py-2 text-sm text-paper">{p.cmd}</code>
                   )}
+                  {p.downloads && (
+                    <div class="flex flex-wrap gap-2">
+                      {p.downloads.map((d) => (
+                        <a href={d.href} class="inline-block rounded-md bg-amber px-3 py-1.5 text-sm font-medium text-ink hover:bg-amberdim transition">{d.label}</a>
+                      ))}
+                    </div>
+                  )}
                   {p.docsHref && (
-                    <a href={p.docsHref} class="text-sm font-medium text-amber hover:text-amberdim transition">{p.docsLabel} →</a>
+                    <a href={p.docsHref} class={`text-sm font-medium text-amber hover:text-amberdim transition ${p.downloads ? 'mt-3 inline-block' : ''}`}>{p.docsLabel} →</a>
                   )}
                 </div>
               </div>
