@@ -1,0 +1,146 @@
+---
+// Marketing landing for dispatchrelay.app. Standalone Tailwind (Play CDN) page with a custom theme
+// (near-black + amber, Space Grotesk / Inter) and a varied layout - deliberately not the stock
+// slate/sky card-grid look. Docs live on a separate site, so doc links point at the docs subdomain.
+import dashboard from '../assets/dashboard.png';
+// Self-hosted fonts (bundled into the build, served from the Cloudflare Pages origin - no Google request).
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '../styles/global.css';
+
+const DOCS = 'https://docs.dispatchrelay.app/';
+const docs = (p = '') => `${DOCS}${p}`;
+
+const providers = ['Mailgun', 'SendGrid', 'Amazon SES', 'Postmark', 'Resend', 'SparkPost', 'SMTP2GO', 'Maileroo', 'Bird', 'Azure', 'any SMTP host'];
+
+const list = [
+  { title: 'Two ways in', body: 'SMTP (25 / 587 / 2525, STARTTLS) or a Mailgun-compatible HTTP API with per-key tokens.' },
+  { title: 'Durable spool', body: 'Instant 250 OK to a local queue — mail keeps flowing even if the database is down. Auto-retry with back-off.' },
+  { title: 'Deploy anywhere', body: 'Windows & Linux installers (bundled SQL), a multi-arch Docker image, or a ready-to-import virtual appliance.' },
+];
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dispatch — self-hosted email relay</title>
+    <meta
+      name="description"
+      content="Dispatch is a self-hosted email relay. Forward mail from your apps to a dozen providers over SMTP or HTTP, with a durable spool, a live dashboard, and no call home."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="bg-ink text-paper font-sans antialiased selection:bg-amber/30">
+    <div class="mx-auto max-w-6xl px-6">
+      <!-- Nav -->
+      <nav class="flex items-center justify-between py-5">
+        <a href="/" class="flex items-center gap-2 font-display text-lg font-bold">
+          <span class="inline-block h-2.5 w-2.5 rounded-full bg-amber"></span>
+          Dispatch
+        </a>
+        <div class="flex items-center gap-6 text-sm text-muted">
+          <a href={DOCS} class="hover:text-paper transition">Docs</a>
+          <a href="https://github.com/CinderHillsDev/dispatch-platform" class="hover:text-paper transition">GitHub</a>
+          <a href="/download" class="hover:text-paper transition">Download</a>
+          <a href={docs('start/quickstart/')} class="rounded-md bg-amber px-3.5 py-1.5 font-medium text-ink hover:bg-amberdim transition">Get started</a>
+        </div>
+      </nav>
+
+      <!-- Hero -->
+      <header class="grid-noise border-b border-line py-20 sm:py-28">
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-amber">Free &amp; open source · self-hosted email relay</p>
+        <h1 class="mt-5 max-w-3xl font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+          The email relay you<br /><span class="text-amber">host yourself.</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          Point your apps and devices at Dispatch over SMTP or HTTP. It queues every message durably and forwards
+          to any provider — with a live dashboard, and nothing phoning home.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href={docs('start/quickstart/')} class="rounded-md bg-amber px-5 py-2.5 font-medium text-ink hover:bg-amberdim transition">Get started →</a>
+          <a href={DOCS} class="rounded-md border border-line px-5 py-2.5 font-medium text-paper hover:bg-panel transition">Read the docs</a>
+          <a href="/download" class="rounded-md border border-line px-5 py-2.5 font-medium text-paper hover:bg-panel transition">Download</a>
+        </div>
+      </header>
+
+      <!-- Screenshot: cropped to a banner of the dashboard top -->
+      <div class="-mt-px">
+        <div class="mx-auto mt-10 w-full max-w-3xl max-h-[420px] overflow-hidden rounded-lg border border-line shadow-2xl shadow-black/50">
+          <img src={dashboard.src} width={dashboard.width} height={dashboard.height} alt="Dispatch dashboard" class="w-full" />
+        </div>
+      </div>
+
+      <!-- Features: one big showcase, two accented callouts, a tight list -->
+      <section class="py-20 sm:py-24">
+        <div class="grid gap-4 lg:grid-cols-3">
+          <!-- Big: providers -->
+          <div class="lg:col-span-3 rounded-xl border border-line bg-panel p-8">
+            <h2 class="font-display text-2xl font-semibold">A dozen providers, one relay</h2>
+            <p class="mt-2 max-w-2xl text-muted">Swap between providers per relay without touching your apps. CC/BCC, attachments, and custom headers everywhere.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              {providers.map((p) => (
+                <span class="rounded-md border border-line px-2.5 py-1 font-display text-sm text-paper/90">{p}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Two accented callouts -->
+          <div class="lg:col-span-2 rounded-xl border border-amber/40 bg-amber/5 p-8">
+            <h2 class="font-display text-xl font-semibold">📥 Local Inbox — for developers</h2>
+            <p class="mt-2 text-muted">
+              Test what your app actually sends without delivering anything. Set the relay to Local and inspect every
+              message — subject, headers, To/Cc/Bcc, rendered HTML &amp; text, and attachments — right in the dashboard.
+              A built-in mail trap, no third-party service.
+            </p>
+          </div>
+          <div class="rounded-xl border border-amber/40 bg-amber/5 p-8">
+            <h2 class="font-display text-xl font-semibold">🔒 No call home</h2>
+            <p class="mt-2 text-muted">
+              No telemetry, no analytics, no update pings. It only connects to the
+              providers you configure.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tight list -->
+        <div class="mt-4 rounded-xl border border-line bg-panel divide-y divide-line">
+          {list.map((f) => (
+            <div class="flex flex-col gap-1 p-6 sm:flex-row sm:items-baseline sm:gap-8">
+              <h3 class="font-display text-lg font-semibold sm:w-52 sm:shrink-0">{f.title}</h3>
+              <p class="text-muted">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="mb-20 rounded-xl border border-line bg-linear-to-b from-panel to-ink p-10 text-center">
+        <h2 class="font-display text-3xl font-bold">Keep your mail on your infrastructure.</h2>
+        <p class="mx-auto mt-3 max-w-lg text-muted">Free, open source, self-hosted, and yours to run.</p>
+        <div class="mt-7 flex justify-center gap-3">
+          <a href={docs('start/quickstart/')} class="rounded-md bg-amber px-5 py-2.5 font-medium text-ink hover:bg-amberdim transition">Get started →</a>
+          <a href="/download" class="rounded-md border border-line px-5 py-2.5 font-medium text-paper hover:bg-panel transition">Download</a>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="flex flex-col items-center justify-between gap-4 border-t border-line py-8 text-sm text-muted sm:flex-row">
+        <div class="flex items-center gap-2 font-display">
+          <span class="inline-block h-2 w-2 rounded-full bg-amber"></span> Dispatch
+        </div>
+        <div class="flex gap-5">
+          <a href={DOCS} class="hover:text-paper transition">Documentation</a>
+          <a href="https://github.com/CinderHillsDev/dispatch-platform" class="hover:text-paper transition">GitHub</a>
+          <a href="/download" class="hover:text-paper transition">Download</a>
+        </div>
+        <p class="text-muted/70">© 2026 CinderHills · Apache-2.0 licensed · open source</p>
+      </footer>
+    </div>
+  </body>
+</html>

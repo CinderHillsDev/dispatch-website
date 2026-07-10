@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Custom theme (Tailwind v4, CSS-based config) - the "ink & signal" palette + fonts. */
+@theme {
+  --color-ink: #0a0a0b;
+  --color-panel: #141416;
+  --color-line: #26262b;
+  --color-paper: #ececea;
+  --color-muted: #9a9aa2;
+  --color-amber: #f5a524;
+  --color-amberdim: #c8841a;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+}
+
+body {
+  font-feature-settings: "cv02", "cv03", "cv04";
+}
+
+.grid-noise {
+  background-image: radial-gradient(circle at 1px 1px, #ffffff0a 1px, transparent 0);
+  background-size: 22px 22px;
+}

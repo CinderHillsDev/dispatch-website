@@ -1,0 +1,76 @@
+---
+// Downloads page. Dispatch is free and open source (Apache-2.0) - the landing and the docs
+// link here. Matches the landing's ink + amber theme.
+const platforms = [
+  { name: 'Windows', body: 'MSI installer (WiX bundle) that chains SQL Server Express and installs Dispatch as a Windows Service.' },
+  { name: 'Linux', body: 'Self-contained install script; runs as a systemd unit. SQL bundled.' },
+  { name: 'Docker', body: 'Multi-arch image. Bring your own SQL, or use the provided compose file.' },
+  { name: 'Virtual appliance', body: 'Ready-to-import VM for Hyper-V, VMware, KVM & Proxmox.' },
+];
+// Self-hosted fonts (bundled - no Google request).
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Download Dispatch</title>
+    <meta name="description" content="Download Dispatch - the self-hosted email relay - for Windows, Linux, Docker, or as a virtual appliance." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="bg-ink text-paper font-sans antialiased selection:bg-amber/30">
+    <div class="mx-auto max-w-5xl px-6">
+      <nav class="flex items-center justify-between py-5">
+        <a href="/" class="flex items-center gap-2 font-display text-lg font-bold">
+          <span class="inline-block h-2.5 w-2.5 rounded-full bg-amber"></span> Dispatch
+        </a>
+        <div class="flex items-center gap-6 text-sm text-muted">
+          <a href="https://docs.dispatchrelay.app/" class="hover:text-paper transition">Docs</a>
+          <a href="https://github.com/CinderHillsDev/dispatch-platform" class="hover:text-paper transition">GitHub</a>
+          <a href="/" class="hover:text-paper transition">Home</a>
+        </div>
+      </nav>
+
+      <header class="border-b border-line py-16">
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-amber">Download</p>
+        <h1 class="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl">Run Dispatch on your own infrastructure</h1>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+          Dispatch is free and open source (Apache-2.0). Grab a build from GitHub releases, pull the Docker
+          image, or run an installer — then follow the Quickstart to get going.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="https://github.com/CinderHillsDev/dispatch-platform/releases" class="rounded-md bg-amber px-5 py-2.5 font-medium text-ink hover:bg-amberdim transition">Get the latest release</a>
+          <span class="text-sm text-muted"><a class="text-amber hover:text-amberdim" href="https://docs.dispatchrelay.app/start/quickstart/">Read the Quickstart</a></span>
+        </div>
+      </header>
+
+      <section class="py-14">
+        <div class="grid gap-4 sm:grid-cols-2">
+          {
+            platforms.map((p) => (
+              <div class="rounded-xl border border-line bg-panel p-6">
+                <h2 class="font-display text-lg font-semibold">{p.name}</h2>
+                <p class="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="mt-8 text-sm text-muted">
+          Install instructions live in the <a class="text-amber hover:text-amberdim" href="https://docs.dispatchrelay.app/deployment/overview/">deployment docs</a>.
+        </p>
+      </section>
+
+      <footer class="flex items-center justify-between border-t border-line py-8 text-sm text-muted">
+        <div class="flex items-center gap-2 font-display"><span class="inline-block h-2 w-2 rounded-full bg-amber"></span> Dispatch</div>
+        <p class="text-muted/70">© 2026 CinderHills · Apache-2.0 licensed · open source</p>
+      </footer>
+    </div>
+  </body>
+</html>
