@@ -26,6 +26,14 @@ const platforms = [
     cmd: `docker pull ${dockerImage}`,
   },
   {
+    name: 'Azure (one-click)',
+    body: 'Spin up an Ubuntu VM with Dispatch + PostgreSQL via an ARM template - no Marketplace account needed.',
+    href: 'https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCinderHillsDev%2Fdispatch-platform%2Fmain%2Fdeploy%2Fazure%2Fazuredeploy.json',
+    hrefLabel: 'Deploy to Azure',
+    docsHref: 'https://docs.dispatchrelay.app/deployment/azure/',
+    docsLabel: 'Azure guide',
+  },
+  {
     name: 'Virtual appliance',
     body: 'Ready-to-import VM (PostgreSQL baked in). Import, power on, done.',
     downloads: [
@@ -91,7 +99,7 @@ import '../styles/global.css';
                 <div class="mt-4">
                   {p.href && (
                     <a href={p.href} class="inline-block rounded-md bg-amber px-4 py-2 text-sm font-medium text-ink hover:bg-amberdim transition">
-                      Download {p.label}
+                      {p.hrefLabel ?? `Download ${p.label}`}
                     </a>
                   )}
                   {p.cmd && (
