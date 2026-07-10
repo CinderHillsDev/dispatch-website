@@ -25,3 +25,10 @@ Cloudflare Pages, connected to this repo:
 > Downloads: the landing links to `/download`, which points at the free, open-source (Apache-2.0)
 > builds — GitHub releases (<https://github.com/CinderHillsDev/dispatch-platform/releases>), the Docker
 > image, and platform installers.
+
+## Contributing & security
+
+Contributions to copy, design, and accessibility are welcome - see **[CONTRIBUTING.md](CONTRIBUTING.md)**.
+Report security issues privately per **[SECURITY.md](SECURITY.md)**. This site is part of the free,
+open-source (Apache-2.0) Dispatch project; the product lives in
+[`dispatch-platform`](https://github.com/CinderHillsDev/dispatch-platform).

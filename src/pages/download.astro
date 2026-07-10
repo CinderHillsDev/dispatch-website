@@ -1,11 +1,36 @@
 ---
 // Downloads page. Dispatch is free and open source (Apache-2.0) - the landing and the docs
 // link here. Matches the landing's ink + amber theme.
+//
+// Update `version` when a new release is cut; the per-platform asset URLs are built from it.
+const version = '0.5.0';
+const releaseBase = `https://github.com/CinderHillsDev/dispatch-platform/releases/download/v${version}`;
+const dockerImage = `ghcr.io/cinderhillsdev/dispatch-platform:${version}`;
+
 const platforms = [
-  { name: 'Windows', body: 'MSI installer (WiX bundle) that chains SQL Server Express and installs Dispatch as a Windows Service.' },
-  { name: 'Linux', body: 'Self-contained install script; runs as a systemd unit. SQL bundled.' },
-  { name: 'Docker', body: 'Multi-arch image. Bring your own SQL, or use the provided compose file.' },
-  { name: 'Virtual appliance', body: 'Ready-to-import VM for Hyper-V, VMware, KVM & Proxmox.' },
+  {
+    name: 'Windows',
+    body: 'One-click installer (WiX bundle) that silently installs PostgreSQL and registers Dispatch as a Windows Service.',
+    href: `${releaseBase}/DispatchSetup-${version}-x64.exe`,
+    label: `DispatchSetup-${version}-x64.exe`,
+  },
+  {
+    name: 'Linux',
+    body: 'Self-contained tarball (x64 + arm64); install.sh sets up PostgreSQL and a systemd unit.',
+    href: `${releaseBase}/dispatch-${version}-linux.tar.gz`,
+    label: `dispatch-${version}-linux.tar.gz`,
+  },
+  {
+    name: 'Docker',
+    body: 'Multi-arch image. Bring your own PostgreSQL, or use the provided docker-compose file to run both.',
+    cmd: `docker pull ${dockerImage}`,
+  },
+  {
+    name: 'Virtual appliance',
+    body: 'Ready-to-import VM (PostgreSQL baked in) for Hyper-V, VMware, KVM & Proxmox.',
+    docsHref: 'https://docs.dispatchrelay.app/deployment/appliance/',
+    docsLabel: 'Appliance guide',
+  },
 ];
 // Self-hosted fonts (bundled - no Google request).
 import '@fontsource/inter/400.css';
@@ -39,14 +64,14 @@ import '../styles/global.css';
       </nav>
 
       <header class="border-b border-line py-16">
-        <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-amber">Download</p>
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-amber">Download · v{version}</p>
         <h1 class="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl">Run Dispatch on your own infrastructure</h1>
         <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-          Dispatch is free and open source (Apache-2.0). Grab a build from GitHub releases, pull the Docker
-          image, or run an installer — then follow the Quickstart to get going.
+          Dispatch is free and open source (Apache-2.0). Grab a build below, pull the Docker image, or run an
+          installer — then follow the Quickstart to get going.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="https://github.com/CinderHillsDev/dispatch-platform/releases" class="rounded-md bg-amber px-5 py-2.5 font-medium text-ink hover:bg-amberdim transition">Get the latest release</a>
+          <a href={`https://github.com/CinderHillsDev/dispatch-platform/releases/tag/v${version}`} class="rounded-md bg-amber px-5 py-2.5 font-medium text-ink hover:bg-amberdim transition">Release notes &amp; all assets</a>
           <span class="text-sm text-muted"><a class="text-amber hover:text-amberdim" href="https://docs.dispatchrelay.app/start/quickstart/">Read the Quickstart</a></span>
         </div>
       </header>
@@ -55,15 +80,29 @@ import '../styles/global.css';
         <div class="grid gap-4 sm:grid-cols-2">
           {
             platforms.map((p) => (
-              <div class="rounded-xl border border-line bg-panel p-6">
+              <div class="flex flex-col rounded-xl border border-line bg-panel p-6">
                 <h2 class="font-display text-lg font-semibold">{p.name}</h2>
-                <p class="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.body}</p>
+                <div class="mt-4">
+                  {p.href && (
+                    <a href={p.href} class="inline-block rounded-md bg-amber px-4 py-2 text-sm font-medium text-ink hover:bg-amberdim transition">
+                      Download {p.label}
+                    </a>
+                  )}
+                  {p.cmd && (
+                    <code class="block overflow-x-auto rounded-md border border-line bg-ink px-3 py-2 text-sm text-paper">{p.cmd}</code>
+                  )}
+                  {p.docsHref && (
+                    <a href={p.docsHref} class="text-sm font-medium text-amber hover:text-amberdim transition">{p.docsLabel} →</a>
+                  )}
+                </div>
               </div>
             ))
           }
         </div>
         <p class="mt-8 text-sm text-muted">
-          Install instructions live in the <a class="text-amber hover:text-amberdim" href="https://docs.dispatchrelay.app/deployment/overview/">deployment docs</a>.
+          Verify downloads against <a class="text-amber hover:text-amberdim" href={`${releaseBase}/SHA256SUMS`}>SHA256SUMS</a>.
+          Full install instructions live in the <a class="text-amber hover:text-amberdim" href="https://docs.dispatchrelay.app/deployment/overview/">deployment docs</a>.
         </p>
       </section>
 
