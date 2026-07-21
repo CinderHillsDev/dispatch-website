@@ -3,37 +3,37 @@
 // link here. Matches the landing's ink + amber theme.
 //
 // Update `version` when a new release is cut; the per-platform asset URLs are built from it.
-const version = '0.5.0';
+const version = '0.7.0';
 const releaseBase = `https://github.com/CinderHillsDev/dispatch-platform/releases/download/v${version}`;
 const dockerImage = `ghcr.io/cinderhillsdev/dispatch-platform:${version}`;
 
 const platforms = [
   {
     name: 'Windows',
-    body: 'One-click installer (WiX bundle) that silently installs PostgreSQL and registers Dispatch as a Windows Service.',
+    body: 'One-click installer (WiX bundle) that registers Dispatch as a Windows Service. No database server to install - it uses a bundled SQLite file by default.',
     href: `${releaseBase}/DispatchSetup-${version}-x64.exe`,
     label: `DispatchSetup-${version}-x64.exe`,
   },
   {
     name: 'Linux',
-    body: 'Self-contained tarball (x64 + arm64); install.sh sets up PostgreSQL and a systemd unit.',
+    body: 'Self-contained tarball (x64 + arm64); install.sh sets up a systemd unit. Uses a bundled SQLite file by default - no database server required.',
     href: `${releaseBase}/dispatch-${version}-linux.tar.gz`,
     label: `dispatch-${version}-linux.tar.gz`,
   },
   {
     name: 'Docker',
-    body: 'Multi-arch image. Bring your own PostgreSQL, or use the provided docker-compose file to run both.',
+    body: 'Multi-arch image. Uses bundled SQLite by default, or point it at a PostgreSQL, MariaDB/MySQL or SQL Server you already run.',
     cmd: `docker pull ${dockerImage}`,
   },
   {
     name: 'Azure (one-click)',
-    body: 'Spin up an Ubuntu VM with Dispatch + PostgreSQL via an ARM template - no Marketplace account needed.',
+    body: 'Spin up an Ubuntu VM with Dispatch via an ARM template - no Marketplace account needed.',
     docsHref: 'https://docs.dispatchrelay.app/deployment/azure/',
     docsLabel: 'Azure deployment guide',
   },
   {
     name: 'Virtual appliance',
-    body: 'Ready-to-import VM (PostgreSQL baked in). Import, power on, done.',
+    body: 'Ready-to-import VM with bundled SQLite - nothing else to configure. Import, power on, done.',
     downloads: [
       { label: 'Hyper-V (VHDX)', href: `${releaseBase}/dispatch-appliance-${version}-hyperv.vhdx.gz` },
       { label: 'VMware (OVA)', href: `${releaseBase}/dispatch-appliance-${version}-vmware.ova` },
@@ -85,6 +85,10 @@ import '../styles/global.css';
           <a href={`https://github.com/CinderHillsDev/dispatch-platform/releases/tag/v${version}`} class="rounded-md bg-amber px-5 py-2.5 font-medium text-ink hover:bg-amberdim transition">Release notes &amp; all assets</a>
           <span class="text-sm text-muted"><a class="text-amber hover:text-amberdim" href="https://docs.dispatchrelay.app/start/quickstart/">Read the Quickstart</a></span>
         </div>
+        <p class="mt-5 text-sm text-muted">
+          On 0.5? Upgrade straight to 0.7 - it makes bundled SQLite the default, so there is no database
+          server to install. (0.6 was an internal development build and was never released publicly.)
+        </p>
       </header>
 
       <section class="py-14">
