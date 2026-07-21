@@ -100,6 +100,25 @@ import '../styles/global.css';
       </header>
 
       <section class="py-14">
+        <div class="mb-10 rounded-xl border border-amber/40 bg-amber/5 p-6 sm:flex sm:items-center sm:justify-between sm:gap-8">
+          <div>
+            <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-amber">Already running Dispatch?</p>
+            <h2 class="mt-2 font-display text-xl font-semibold text-paper">Upgrade in place - no reinstall</h2>
+            <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+              Grab the one cross-platform upgrade package and upload it on the <span class="text-paper">Updates</span>
+              page in your dashboard. It carries the payload for every platform (Linux x64/arm64 and Windows) and
+              is signed, so your install verifies it before applying - on any appliance, Linux, or Windows box.
+            </p>
+          </div>
+          <div class="mt-5 flex shrink-0 flex-col gap-2 sm:mt-0 sm:items-end">
+            <a href={`${releaseBase}/dispatch-upgrade-${version}.tar.gz`} class="inline-block rounded-md bg-amber px-5 py-2.5 text-sm font-semibold text-ink hover:bg-amberdim transition">
+              Download upgrade package
+            </a>
+            <code class="text-xs text-muted/80">dispatch-upgrade-{version}.tar.gz</code>
+            <a href="https://docs.dispatchrelay.app/deployment/upgrading/" class="mt-1 text-sm font-medium text-amber hover:text-amberdim transition">Upgrading guide →</a>
+          </div>
+        </div>
+
         <p class="mb-4 text-sm font-medium text-muted">Choose your platform</p>
         <div role="tablist" aria-label="Choose your platform" class="flex flex-wrap gap-2">
           {
@@ -153,25 +172,6 @@ import '../styles/global.css';
               </div>
             ))
           }
-        </div>
-
-        <div class="mt-10 rounded-xl border border-amber/40 bg-amber/5 p-6 sm:flex sm:items-center sm:justify-between sm:gap-8">
-          <div>
-            <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-amber">Already running Dispatch?</p>
-            <h2 class="mt-2 font-display text-xl font-semibold text-paper">Upgrade in place - no reinstall</h2>
-            <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-              Grab the one cross-platform upgrade package and upload it on the <span class="text-paper">Updates</span>
-              page in your dashboard. It carries the payload for every platform (Linux x64/arm64 and Windows) and
-              is signed, so your install verifies it before applying - on any appliance, Linux, or Windows box.
-            </p>
-          </div>
-          <div class="mt-5 flex shrink-0 flex-col gap-2 sm:mt-0 sm:items-end">
-            <a href={`${releaseBase}/dispatch-upgrade-${version}.tar.gz`} class="inline-block rounded-md bg-amber px-5 py-2.5 text-sm font-semibold text-ink hover:bg-amberdim transition">
-              Download upgrade package
-            </a>
-            <code class="text-xs text-muted/80">dispatch-upgrade-{version}.tar.gz</code>
-            <a href="https://docs.dispatchrelay.app/deployment/upgrading/" class="mt-1 text-sm font-medium text-amber hover:text-amberdim transition">Upgrading guide →</a>
-          </div>
         </div>
 
         <p class="mt-8 text-sm text-muted">
